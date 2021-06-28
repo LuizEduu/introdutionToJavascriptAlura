@@ -9,9 +9,8 @@ function calculateImc(weight, height) {
   return weight / (height * 2);
 }
 
-pacients.forEach((pacient) => {
-  const weight = pacient.querySelector(".info-peso").textContent;
-  const height = pacient.querySelector(".info-altura").textContent;
+function addImcInTable(weight, height, pacient) {
+  console.log(weight, height, pacient);
 
   const imc = calculateImc(weight, height);
 
@@ -23,28 +22,46 @@ pacients.forEach((pacient) => {
   } else {
     tdImc.textContent = imc.toFixed(2);
   }
+}
+
+pacients.forEach((pacient) => {
+  const weight = pacient.querySelector(".info-peso").textContent;
+  const height = pacient.querySelector(".info-altura").textContent;
+
+  addImcInTable(weight, height, pacient);
 });
+
 
 addPacientButton.addEventListener("click", (event) => {
   event.preventDefault(); //previne os comportamentos padrões de um evento
   const inputsForm = document.querySelectorAll("#addNewPacient input"); // get all inputs the form
+  const inputsValues = [];
 
   const tablePacient = document.querySelector("#tabela-pacientes"); // get table
-  const pacientTr = tablePacient.querySelector("tr"); //get one tr
-  const pacientTds = pacientTr.querySelectorAll("td"); // get all tds an tr
 
   const createNewTr = document.createElement("tr"); // create new tr
 
-  pacientTds.forEach((td) => {
+  inputsForm.forEach((input) => {
+    inputsValues.push(input.value);
+  }); //add inputs values in array
+
+  
+  for (let i = 0; i < inputsForm.length; i++) {
     const newTd = document.createElement("td"); // create new td
-    
-    for (const input of inputsForm) {
-      // get values the inputs
-      newTd.textContent = input.value;
-    }
+
+    newTd.textContent = inputsValues[i];
 
     createNewTr.appendChild(newTd); // add a created td a created tr
-  });
+  }
 
-  tablePacient.appendChild(createNewTr); // add a created tr with values in tds a table
+  const weight = inputsValues[1];
+  const height = inputsValues[2];
+
+  const imcTd = document.createElement("td");
+  imcTd.classList.add("info-imc");
+  createNewTr.appendChild(imcTd);
+
+  addImcInTable(weight, height, createNewTr);
+
+  tablePacient.appendChild(createNewTr); // add a created tr with values in
 });
