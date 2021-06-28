@@ -10,8 +10,6 @@ function calculateImc(weight, height) {
 }
 
 function addImcInTable(weight, height, pacient) {
-  console.log(weight, height, pacient);
-
   const imc = calculateImc(weight, height);
 
   const tdImc = pacient.querySelector(".info-imc");
@@ -31,7 +29,6 @@ pacients.forEach((pacient) => {
   addImcInTable(weight, height, pacient);
 });
 
-
 addPacientButton.addEventListener("click", (event) => {
   event.preventDefault(); //previne os comportamentos padrões de um evento
   const inputsForm = document.querySelectorAll("#addNewPacient input"); // get all inputs the form
@@ -45,14 +42,13 @@ addPacientButton.addEventListener("click", (event) => {
     inputsValues.push(input.value);
   }); //add inputs values in array
 
-  
-  for (let i = 0; i < inputsForm.length; i++) {
+  inputsValues.map((value) => {
     const newTd = document.createElement("td"); // create new td
 
-    newTd.textContent = inputsValues[i];
+    newTd.textContent = value;
 
     createNewTr.appendChild(newTd); // add a created td a created tr
-  }
+  });
 
   const weight = inputsValues[1];
   const height = inputsValues[2];
