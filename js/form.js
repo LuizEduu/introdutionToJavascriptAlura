@@ -102,9 +102,7 @@ function addElementsInTable() {
   const tablePacient = document.querySelector("#tabela-pacientes"); // get table
   const pacient = getInputValues();
   const createNewTr = document.createElement("tr"); // create new tr
-
-  console.log(pacient.imc);
-
+  
   //verify imc
   const validImc = validateImc(pacient.imc);
   const tdImc = addTd(pacient.imc, "info-imc");

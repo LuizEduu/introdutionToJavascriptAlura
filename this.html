@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var artista = "The Beatles";
+
+      let bar = {
+        artista: "Dire Straits",
+      };
+
+      let show = {
+        artista: "Blind Guardian",
+      };
+
+      function tocar() {
+        console.log(`Estamos tocando ${this.artista}!`);
+      }
+
+      const tocarParaTodos = tocar;
+      const tocarNoBar = tocar.bind(bar);
+      const tocarNoShow = tocar.bind(show);
+
+      tocarParaTodos();
+      tocarNoBar();
+      tocarNoShow();
+    </script>
+  </body>
+</html>
