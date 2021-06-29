@@ -4,7 +4,7 @@ pacients.forEach((pacient) => {
   const weight = pacient.querySelector(".info-peso").textContent;
   const height = pacient.querySelector(".info-altura").textContent;
   const imcTd = pacient.querySelector(".info-imc");
-  
+
   const imc = calculateImc(weight, height);
   const validImc = validateImc(imc);
 

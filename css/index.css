@@ -133,5 +133,12 @@ button:disabled {
 }
 
 .invalidRowTable {
-	background-color: lightcoral;
+  background-color: lightcoral;
+}
+
+.invalidInputError {
+  color: red;
+  display: inline-block;
+  margin-right: 5px;
+  font-weight: bold;
 }

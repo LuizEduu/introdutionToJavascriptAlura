@@ -16,14 +16,79 @@ function getInputValues() {
     imc: calculateImc(weight.value, height.value),
   });
 
+  const errors = errorMessage(validatePacient(pacient));
+
+  if (errors) {
+    return;
+  }
+
+  clearForm();
+
+  return pacient;
+}
+
+function clearForm() {
+  const errors = document.querySelector("#errorMessage");
+
+  errors.innerHTML = "";
+
   document.querySelector("#nome").value = "";
   document.querySelector("#peso").value = "";
   document.querySelector("#altura").value = "";
   document.querySelector("#gordura").value = "";
 
-  return pacient;
+  document.querySelector("#nome").classList.remove("campo-invalido");
+  document.querySelector("#peso").classList.remove("campo-invalido");
+  document.querySelector("#altura").classList.remove("campo-invalido");
+  document.querySelector("#gordura").classList.remove("campo-invalido");
 }
 
+function errorMessage(erros) {
+  if (erros.length > 0) {
+    erros.forEach((err) => {
+      const ulError = document.querySelector("#errorMessage");
+      const liError = document.createElement("li");
+      liError.textContent = err;
+      liError.classList.add("invalidInputError");
+
+      ulError.appendChild(liError);
+    });
+
+    return true;
+  }
+
+  return false;
+}
+
+function validatePacient(pacient) {
+  const errors = [];
+
+  if (
+    pacient.name == "" ||
+    pacient.name.length < 5 ||
+    typeof pacient.name == "number"
+  ) {
+    document.querySelector("#nome").classList.add("campo-invalido");
+    errors.push("Nome inválido");
+  }
+
+  if (pacient.weight <= 0 || pacient.weight >= 500 || isNaN(pacient.weight)) {
+    document.querySelector("#peso").classList.add("campo-invalido");
+    errors.push("Peso inválido");
+  }
+
+  if (pacient.height <= 0 || pacient.height >= 3.0 || isNaN(pacient.height)) {
+    document.querySelector("#altura").classList.add("campo-invalido");
+    errors.push("Altura inválida");
+  }
+
+  if (pacient.fat == "" || pacient.name.fat < 0) {
+    document.querySelector("#gordura").classList.add("campo-invalido");
+    errors.push("% de gordura inválida");
+  }
+
+  return errors;
+}
 
 function addTd(value, cssClass) {
   const td = document.createElement("td");
@@ -38,6 +103,9 @@ function addElementsInTable() {
   const pacient = getInputValues();
   const createNewTr = document.createElement("tr"); // create new tr
 
+  console.log(pacient.imc);
+
+  //verify imc
   const validImc = validateImc(pacient.imc);
   const tdImc = addTd(pacient.imc, "info-imc");
 
