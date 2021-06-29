@@ -1,19 +1,19 @@
 const addPacientButton = document.querySelector("#adicionar-paciente");
 
 function getInputValues() {
-  const name = document.querySelector("#nome").value;
-  const weight = document.querySelector("#peso").value;
-  const height = document.querySelector("#altura").value;
-  const fat = document.querySelector("#gordura").value;
+  const name = document.querySelector("#nome");
+  const weight = document.querySelector("#peso");
+  const height = document.querySelector("#altura");
+  const fat = document.querySelector("#gordura");
 
   const pacient = {};
 
   Object.assign(pacient, {
-    name,
-    weight,
-    height,
-    fat,
-    imc: calculateImc(weight, height),
+    name: name.value,
+    weight: weight.value,
+    height: height.value,
+    fat: fat.value,
+    imc: calculateImc(weight.value, height.value),
   });
 
   document.querySelector("#nome").value = "";
@@ -23,6 +23,7 @@ function getInputValues() {
 
   return pacient;
 }
+
 
 function addTd(value, cssClass) {
   const td = document.createElement("td");
@@ -37,39 +38,26 @@ function addElementsInTable() {
   const pacient = getInputValues();
   const createNewTr = document.createElement("tr"); // create new tr
 
-  const tdName = addTd(pacient.name, "info-nome");
-  const tdWeight = addTd(pacient.weight, "info-peso");
-  const tdHeight = addTd(pacient.height, "info-altura");
-  const tdFat = addTd(pacient.fat, "info-gordura");
-
   const validImc = validateImc(pacient.imc);
-
   const tdImc = addTd(pacient.imc, "info-imc");
 
   if (!validImc) {
     tdImc.textContent = "Altura ou peso inválido";
     createNewTr.classList.add("invalidRowTable");
   } else {
-    tdImc.textContent = imc.toFixed(2);
+    tdImc.textContent = pacient.imc.toFixed(2);
   }
 
-  createNewTr.appendChild(tdName);
-  createNewTr.appendChild(tdWeight);
-  createNewTr.appendChild(tdHeight);
-  createNewTr.appendChild(tdFat);
+  createNewTr.appendChild(addTd(pacient.name, "info-nome"));
+  createNewTr.appendChild(addTd(pacient.weight, "info-peso"));
+  createNewTr.appendChild(addTd(pacient.height, "info-altura"));
+  createNewTr.appendChild(addTd(pacient.fat, "info-gordura"));
   createNewTr.appendChild(tdImc);
 
   tablePacient.appendChild(createNewTr); // add a created tr with values in
 }
 
-function clearInputs(inputsForm) {
-  inputsForm.forEach((input) => {
-    input.value = "";
-  });
-}
-
 addPacientButton.addEventListener("click", (event) => {
   event.preventDefault(); //previne os comportamentos padrões de um evento
-
   addElementsInTable();
 });
