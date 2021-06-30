@@ -156,3 +156,9 @@ button:disabled {
 .filterAnimation {
   display: none;
 }
+
+.bto-principal {
+  border-radius: 5%;
+  font-size: 20px;
+  height: 60px;
+}
