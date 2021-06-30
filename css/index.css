@@ -142,3 +142,17 @@ button:disabled {
   margin-right: 5px;
   font-weight: bold;
 }
+
+.fadeOut {
+  opacity: 0;
+  transition: 0.5s;
+}
+
+#filtrar-tabela {
+  width: 50%;
+  margin-bottom: 15px;
+}
+
+.filterAnimation {
+  display: none;
+}

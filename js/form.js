@@ -65,7 +65,7 @@ function validatePacient(pacient) {
 
   if (
     pacient.name == "" ||
-    pacient.name.length < 5 ||
+    pacient.name.length < 3 ||
     typeof pacient.name == "number"
   ) {
     document.querySelector("#nome").classList.add("campo-invalido");
@@ -102,7 +102,7 @@ function addElementsInTable() {
   const tablePacient = document.querySelector("#tabela-pacientes"); // get table
   const pacient = getInputValues();
   const createNewTr = document.createElement("tr"); // create new tr
-  
+
   //verify imc
   const validImc = validateImc(pacient.imc);
   const tdImc = addTd(pacient.imc, "info-imc");
